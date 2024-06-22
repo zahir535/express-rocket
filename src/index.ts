@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import piRouter from "./route/pi";
 
 require("dotenv").config();
 
@@ -14,6 +15,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// use router
+app.use("/pi", piRouter);
 
 app.get("/", (_req: Request, res: Response) => {
   return res.send("Express Typescript on Vercel");
