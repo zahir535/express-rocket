@@ -8,6 +8,7 @@ export type piMethodsTypes = "gregory" | "limit";
 export interface PIData {
   method: piMethodsTypes;
   piValues: number;
+  values: number;
 }
 
 export const calculatePi = async (req: Request, res: Response) => {
@@ -45,7 +46,7 @@ export const calculatePi = async (req: Request, res: Response) => {
 
   if (calculationMethod === "limit") {
     if (passedBigNumber) {
-      calculatedPiValue = calculatePiLimit(defaultIteration);
+      calculatedPiValue = calculatePiLimit(req.body.bigNumber);
     } else {
       return res.json({
         data: null,
@@ -64,6 +65,8 @@ export const calculatePi = async (req: Request, res: Response) => {
   const data: PIData = {
     method: calculationMethod,
     piValues: calculatedPiValue,
+    values:
+      calculationMethod === "limit" ? req.body.bigNumber : defaultIteration,
   };
   const getProps = {
     collectionName: COLLECTION_NAMES.PI_VALUES,

@@ -39,7 +39,7 @@ const calculatePi = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     if (calculationMethod === "limit") {
         if (passedBigNumber) {
-            calculatedPiValue = (0, utils_1.calculatePiLimit)(defaultIteration);
+            calculatedPiValue = (0, utils_1.calculatePiLimit)(req.body.bigNumber);
         }
         else {
             return res.json({
@@ -57,6 +57,7 @@ const calculatePi = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const data = {
         method: calculationMethod,
         piValues: calculatedPiValue,
+        values: calculationMethod === "limit" ? req.body.bigNumber : defaultIteration,
     };
     const getProps = {
         collectionName: data_1.COLLECTION_NAMES.PI_VALUES,
