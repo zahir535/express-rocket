@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
+const pi_1 = __importDefault(require("./route/pi"));
 require("dotenv").config();
 const app = (0, express_1.default)();
 const corsOptions = {
@@ -16,6 +17,8 @@ const corsOptions = {
 app.use((0, cors_1.default)(corsOptions));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+// use router
+app.use("/pi", pi_1.default);
 app.get("/", (_req, res) => {
     return res.send("Express Typescript on Vercel");
 });
